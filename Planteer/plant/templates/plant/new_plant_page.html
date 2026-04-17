@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}New Plant Page{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Add a New Plant</h1>
+    <form method="post" action="{% url 'plant:new_plant_view' %}"  enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Add Plant</button>
+    </form>
+</div>
+
+{% endblock %}

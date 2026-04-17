@@ -4,8 +4,15 @@
     box-sizing: border-box;
 }
 body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column; 
     font-family: 'Poppins', sans-serif;
     background: #ffffff;
+}
+
+main{
+    flex: 1; 
 }
 .navbar{
     display: flex;
@@ -96,4 +103,10 @@ body{
 
 .card:hover img {
     transform: scale(1.05);
+}
+
+/* footer */
+.footer {
+    width: 100%;
+    margin-top: auto;
 }
