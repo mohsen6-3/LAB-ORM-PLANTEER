@@ -11,11 +11,10 @@
             <div class="card">
                 <img src="{{ plant.image.url }}" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">{{ plant.name }}</h5>
-                    <p class="card-text">{{ plant.about }}</p>
-                    <p class="card-text"><small class="text-muted">Used For: {{ plant.used_for }}</small></p>
+                    <a href="{% url 'plant:detail_plant_view' plant.id %}">
+                        <h5 class="card-title">{{ plant.name }}</h5>
+                    </a>
                     <p class="card-text">category: {{ plant.get_category_display }}</p>
-                    <p class="card-text"></p>is edible: {{ plant.is_edible }}</p>
                     <p class="card-text">created at: {{ plant.created_at }}</p>
                 </div>
             </div>
