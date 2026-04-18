@@ -28,7 +28,7 @@ main{
     color: #333333;
 }
 .container_home{
-    max-width: 1200px;
+    max-width: 1500px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -56,10 +56,17 @@ main{
     left: 50%;
     transform: translate(-50%, -50%);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    font-size: 30px;
+    font-size: 40px;
     font-weight: bold;
     color: #ffffff;
     margin-top: 20px;
+}
+.search {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 46%;
 }
 .card {
     border: none;

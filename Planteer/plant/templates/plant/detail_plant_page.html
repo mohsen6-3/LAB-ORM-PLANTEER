@@ -5,21 +5,23 @@
 {% block content %}
 <div class="container mt-5">
     <h1 class="mb-4">Detail Plant</h1>
-    <div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
-        <div class="col">
-            <div class="card">
-                <img src="{{ plant.image.url }}" class="card-img-top" alt="...">
-                <div class="card-body">
+    <div class="card mb-3 mx-auto" style="max-width: 1000px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="{{ plant.image.url }}" class="img-fluid rounded-start h-100" style="object-fit: cover;">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body ">
                     <h5 class="card-title">{{ plant.name }}</h5>
+                    <p class="card-text">{{ plant.get_category_display }}</p>
                     <p class="card-text">{{ plant.about }}</p>
-                    <p class="card-text"><small class="text-muted">Used For: {{ plant.used_for }}</small></p>
-                    <p class="card-text">category: {{ plant.get_category_display }}</p>
-                    <p class="card-text"></p>is edible: {{ plant.is_edible }}</p>
-                    <p class="card-text">created at: {{ plant.created_at }}</p>
+                    <p class="card-text">Created at: {{ plant.created_at }}</p>
+                    <p class="card-text">Is Edible:{% if plant.is_edible %} Yes {% else %} No {% endif %}</p>
+                    <p class="card-text">Used for: {{ plant.used_for }}</p>
                 </div>
-                <div class="card-footer text-center">
+                <div class="card-footer text-center bg-white border-top-0 mb-3 ">
                     <a href="{% url 'plant:update_plant_view' plant.id %}" class="btn btn-primary">Update</a>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"data-bs-target="#exampleModal">Delete</button>
                 </div>
             </div>
         </div>
@@ -43,5 +45,6 @@
         </div>
     </div>
 </div>
+
 
 {% endblock %}

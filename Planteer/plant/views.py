@@ -45,3 +45,9 @@ def delete_plant_view(request : HttpRequest, plant_id):
     plant.delete()
     return redirect('plant:plants_view')
 
+def search_plant_view(request : HttpRequest):
+
+    return render(request, "plant/search_plant_page.html")
+
+    
+
