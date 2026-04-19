@@ -5,6 +5,11 @@ from .forms import PlantForm
 # Create your views here.
 def plants_view(request : HttpRequest):
     plants = Plant.objects.all()
+    if 'order_by' in request.GET and request.GET['order_by'] == "category":
+        plants = plants.order_by(request.GET['order_by'])
+    if 'order_by' in request.GET and request.GET['order_by'] == "is_edible":
+        plants = plants.order_by(request.GET['order_by'])
+
     return render(request, "plant/show_plant.html", {"plants": plants})
 
 def new_plant_view(request : HttpRequest):
@@ -48,7 +53,7 @@ def delete_plant_view(request : HttpRequest, plant_id):
     return redirect('plant:plants_view')
 
 def search_plant_view(request : HttpRequest):
-    if "search" in request.GET:
+    if "search" in request.GET and len(request.GET["search"]) >= 3:
         plant = Plant.objects.filter(name__contains=request.GET["search"])
     else:
         plant = []

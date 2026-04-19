@@ -9,7 +9,7 @@
         <h1 class="title"> Planteer</h1>
         <p class="lead">Plant Database for Plant Lovers</p>
         <form method="get" action="{% url 'plant:search_plant_view' %}" class="d-flex search mt-3" role="search">
-            <input class="form-control me-2" type="search"placeholder="Search" aria-label="Search" name="search" />
+            <input class="form-control me-2" type="search"placeholder="Search" aria-label="Search" name="search" value="{{request.GET.search}}" required minlength="3" />
             <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
         </form>
     
@@ -38,7 +38,7 @@
                         </a>
                         <p class="card-text">{{ plant.get_category_display }}</p>
                         <p class="card-text"> Is Edible: {% if plant.is_edible %}
-                            Yes.
+                            Yes
                             {% else %}
                             No
                             {% endif %}</p>
