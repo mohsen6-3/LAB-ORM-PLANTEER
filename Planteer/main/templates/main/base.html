@@ -27,7 +27,7 @@
                         <a class="nav-link" href="{% url 'plant:plants_view' %}">All Plants</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact Us</a>
+                        <a class="nav-link" href="{% url 'contact:contact_view' %}">Contact Us</a>
                     </li>
                     <li class="nav-item">
                         <a class="btn btn-outline-success" href="{% url 'plant:new_plant_view' %}">Add Plant </a>
@@ -78,8 +78,8 @@
                 <!-- Section 2 -->
                 <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
                     <h5 class="mb-4">Contact</h5>
-                    <p><a href="#" class="text-black text-decoration-none">Contact Us</a></p>
-                    <p><a href="#" class="text-black text-decoration-none">Feedback</a></p>
+                    <p><a href="{% url 'contact:contact_view' %}" class="text-black text-decoration-none">Contact Us</a></p>
+                    <p><a href="{% url 'contact:message_view' %}" class="text-black text-decoration-none">Feedback</a></p>
                 </div>
             </div>
         </div>
