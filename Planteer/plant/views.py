@@ -23,8 +23,10 @@ def new_plant_view(request : HttpRequest):
 
 def detail_plant_view(request : HttpRequest, plant_id):
 
-    plant = Plant.objects.get(pk=plant_id)
-    return render(request, "plant/detail_plant_page.html", {"plant": plant})
+    plant = get_object_or_404(Plant, pk=plant_id)
+    related_plants = Plant.objects.filter(category=plant.category).exclude(pk=plant_id)
+
+    return render(request, "plant/detail_plant_page.html", {"plant": plant,"related_plants": related_plants})
 
 def update_plant_view(request : HttpRequest, plant_id):
 
@@ -46,8 +48,15 @@ def delete_plant_view(request : HttpRequest, plant_id):
     return redirect('plant:plants_view')
 
 def search_plant_view(request : HttpRequest):
-
-    return render(request, "plant/search_plant_page.html")
-
+    if "search" in request.GET:
+        plant = Plant.objects.filter(name__contains=request.GET["search"])
+    else:
+        plant = []
     
+    return render(request, "plant/search_plant_page.html",{"plant": plant})
 
+
+# def related_plant_view(request : HttpRequest, plant_id):
+#     plant = get_object_or_404(Plant, pk=plant_id)
+#     related_plants = Plant.objects.filter(category=plant.category).exclude(pk=plant_id)
+#     return render(request, "plant/detail_plant_page.html", {"plant": plant, "related_plants": related_plants})

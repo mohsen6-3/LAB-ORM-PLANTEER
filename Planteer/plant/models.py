@@ -7,6 +7,7 @@ class Plant(models.Model):
         FRUIT = 'FRUIT','Fruit'
         VEGETABLE = 'VEGETABLE','Vegetable'
         FLOWER = 'FLOWER','Flower'
+        HERB = 'HERB','Herb'
         OTHER = 'OTHER','Other'
     name = models.CharField(max_length=100)
     about  = models.TextField()

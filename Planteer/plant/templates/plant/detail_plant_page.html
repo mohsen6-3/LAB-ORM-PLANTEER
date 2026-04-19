@@ -26,6 +26,32 @@
             </div>
         </div>
     </div>
+    <h3 class="mb-4 mt-5">Related Plants</h3>
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
+        {% if related_plants %}
+        {% for related in related_plants %}
+        
+        <div class="col">
+            <div class="card h-100">
+                <img src="{{ related.image.url }}" class="card-img-top" alt="...">
+                <div class="card-body text-start">
+                    <a href="{% url 'plant:detail_plant_view' related.id %}">
+                        <h5 class="card-title">{{ related.name }}</h5>
+                    </a>
+                    <p class="card-text">{{ related.get_category_display }}</p>
+                    <p class="card-text"> Is Edible: {% if related.is_edible %}
+                        Yes.
+                        {% else %}
+                        No
+                        {% endif %}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p class="text-center">No related plants found.</p>
+        {% endif %}
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
