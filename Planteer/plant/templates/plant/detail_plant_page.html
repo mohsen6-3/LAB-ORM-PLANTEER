@@ -20,17 +20,16 @@
                     <p class="card-text">Used for: {{ plant.used_for }}</p>
                 </div>
                 <div class="card-footer text-center bg-white border-top-0 mb-3 ">
-                    <a href="{% url 'plant:update_plant_view' plant.id %}" class="btn btn-primary">Update</a>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"data-bs-target="#exampleModal">Delete</button>
+                    <a href="{% url 'plant:update_plant_view' plant.id %}" class="btn btn-primary text-white">Update</a>
+                    <a href="{% url 'plant:delete_plant_view' plant.id %}" class="btn btn-danger text-white" ">Delete</a>
                 </div>
             </div>
         </div>
     </div>
     <h3 class="mb-4 mt-5">Related Plants</h3>
-    <div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-2">
         {% if related_plants %}
         {% for related in related_plants %}
-        
         <div class="col">
             <div class="card h-100">
                 <img src="{{ related.image.url }}" class="card-img-top" alt="...">
@@ -52,24 +51,7 @@
         <p class="text-center">No related plants found.</p>
         {% endif %}
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Plant</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to delete {{ plant.name }} ?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a href="{% url 'plant:delete_plant_view' plant.id %}" class="btn btn-danger">Delete</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 </div>
 
 

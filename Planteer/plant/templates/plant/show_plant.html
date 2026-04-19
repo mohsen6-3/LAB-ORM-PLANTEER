@@ -4,20 +4,40 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="mb-4">All Plants</h1>
-    <div class="d-flex justify-content-end mb-3">
-        <form action="{% url 'plant:plants_view' %}" method="get" >
-            <div class="d-flex gap-3">
-                <!-- <input type="search" name="search" class="form-control" placeholder="Search by name" value="{{ request.GET.search }}" required minlength="3"> -->
-                <select name="order_by" class="form-select">
-                    <option name="order_by" value="">Default</option>
-                    <option value="category" {% if request.GET.order_by == "category" %}selected{% endif %}>Category</option>
-                    <option value="is_edible" {% if request.GET.order_by == "is_edible" %}selected{% endif %}>Is Edible</option>
-                </select>
-                <input type="submit" value="apply" class="btn btn-primary ">
+        <h1 class="mb-4">All Plants</h1>
+        {% if plants %}
+            <div class="d-flex justify-content-end mb-3">
+                <form action="{% url 'plant:plants_view' %}" method="get" >
+                    <div class="d-flex gap-3">
+                        <!-- <input type="search" name="search" class="form-control" placeholder="Search by name" value="{{ request.GET.search }}" required minlength="3"> -->
+                        <form method="get" class="d-flex gap-2 align-items-center flex-wrap mb-4">
+                        
+                            <input type="text" name="search" class="form-control" placeholder="Search by name" value="{{ request.GET.search }}">
+                        
+                            <select name="category" class="form-select">
+                                <option value="">All Categories</option>
+                                <option value="FRUIT" {% if request.GET.category == "FRUIT" %}selected{% endif %}>Fruit</option>
+                                <option value="VEGETABLE" {% if request.GET.category == "VEGETABLE" %}selected{% endif %}>Vegetable</option>
+                                <option value="FLOWER" {% if request.GET.category == "FLOWER" %}selected{% endif %}>Flower</option>
+                                <option value="HERB" {% if request.GET.category == "HERB" %}selected{% endif %}>Herb</option>
+                            </select>
+                        
+                            <select name="is_edible" class="form-select">
+                                <option value="">All</option>
+                                <option value="true" {% if request.GET.is_edible == "true" %}selected{% endif %}>Edible</option>
+                                <option value="false" {% if request.GET.is_edible == "false" %}selected{% endif %}>Not Edible</option>
+                            </select>
+                        
+                            <button type="submit" class="btn btn-primary">Apply</button>
+                            <a href="{% url 'plant:plants_view' %}" class="btn btn-secondary">Reset</a>
+                        </form>
+                    </div>
+                </form>
+            
             </div>
-        </form>
-    </div>
+        {% else %}
+             <p>No plants found.</p>
+        {% endif %}
     <div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
         {% for plant in plants %}
         <div class="col">
@@ -27,6 +47,7 @@
                     <a href="{% url 'plant:detail_plant_view' plant.id %}">
                         <h5 class="card-title">{{ plant.name }}</h5>
                     </a>
+                    <p class="card-text">{{ plant.about|truncatechars:100 }}</p>
                     <p class="card-text">{{ plant.get_category_display }}</p>
                     <p class="card-text"> Is Edible: {% if plant.is_edible %}
                         Yes

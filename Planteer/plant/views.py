@@ -5,10 +5,17 @@ from .forms import PlantForm
 # Create your views here.
 def plants_view(request : HttpRequest):
     plants = Plant.objects.all()
-    if 'order_by' in request.GET and request.GET['order_by'] == "category":
-        plants = plants.order_by(request.GET['order_by'])
-    if 'order_by' in request.GET and request.GET['order_by'] == "is_edible":
-        plants = plants.order_by(request.GET['order_by'])
+    search = request.GET.get('search')
+    category = request.GET.get('category')
+    is_edible = request.GET.get('is_edible')
+    if search:
+        plants = plants.filter(name__icontains=search)
+    if category:
+        plants = plants.filter(category=category)
+    if is_edible == "true":
+        plants = plants.filter(is_edible=True)
+    elif is_edible == "false":
+        plants = plants.filter(is_edible=False)
 
     return render(request, "plant/show_plant.html", {"plants": plants})
 
@@ -47,11 +54,12 @@ def update_plant_view(request : HttpRequest, plant_id):
     return render(request, "plant/update_plant_page.html", {"plant": plant , "form": plant_form})
 
 def delete_plant_view(request : HttpRequest, plant_id):
-
     plant = get_object_or_404(Plant, pk=plant_id)
-    plant.delete()
-    return redirect('plant:plants_view')
-
+    if request.method == "POST":
+        plant.delete()
+        return redirect('plant:plants_view')
+    
+    return render(request, "plant/delete_plant_page.html", {"plant": plant})
 def search_plant_view(request : HttpRequest):
     if "search" in request.GET and len(request.GET["search"]) >= 3:
         plant = Plant.objects.filter(name__contains=request.GET["search"])
@@ -60,8 +68,3 @@ def search_plant_view(request : HttpRequest):
     
     return render(request, "plant/search_plant_page.html",{"plant": plant})
 
-
-# def related_plant_view(request : HttpRequest, plant_id):
-#     plant = get_object_or_404(Plant, pk=plant_id)
-#     related_plants = Plant.objects.filter(category=plant.category).exclude(pk=plant_id)
-#     return render(request, "plant/detail_plant_page.html", {"plant": plant, "related_plants": related_plants})
