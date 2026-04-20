@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container mt-5">
-        <h1 class="mb-4">All Plants</h1>
+        <h1 class="mb-4">All Plants ({{ plants.count }})</h1>
         {% if plants %}
             <div class="d-flex justify-content-end mb-3">
                 <form action="{% url 'plant:plants_view' %}" method="get" >

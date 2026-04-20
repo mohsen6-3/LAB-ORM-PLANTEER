@@ -51,8 +51,30 @@
         <p class="text-center">No related plants found.</p>
         {% endif %}
     </div>
-    
+    <hr />
+    <h3>Comments ({{ comments.count }})</h3>
+    <div class="d-flex flex-column gap-3">
+        {% for comment in comments %}
+        <div class="card mt-3 mb-3 ">
+            <div class="card-body ">
+                <h5 class="card-title">{{ comment.name }}</h5>
+                <p class="card-text">{{ comment.comment }}</p>
+                <p class="card-text"><small class="text-muted">Posted at: {{ comment.created_at }}</small></p>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">No comments yet.</p>
+        {% endfor %}
+    </div>
+    <h3>Add Comment</h3>
+    <form class="d-flex flex-column gap-2"action="{% url 'plant:add_comment_view' plant.id %}" method="post" >
+        {% csrf_token %}
+        <input class="form-control" name = "name" required minlength="3" placeholder="Name">
+        <textarea class="form-control" name = "comment" required minlength="5" placeholder="Comment..."></textarea>
+        <button class="btn btn-success align-self-start" type="submit" value="Send Comment">Add Comment</button>
+    </form>
 </div>
+
 
 
 {% endblock %}
