@@ -1,6 +1,13 @@
 from django.db import models
 
 # Create your models here.
+class Country(models.Model):
+    name = models.CharField(max_length=128,unique=True)
+    flag = models.ImageField(upload_to='flags/',default='flags/default.jpg')
+
+    def __str__(self):
+        return self.name
+
 class Plant(models.Model):
 
     class Category(models.TextChoices):
@@ -16,6 +23,7 @@ class Plant(models.Model):
     category = models.CharField(max_length=20,choices=Category.choices,default=Category.OTHER)
     is_edible = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    countries =models.ManyToManyField(Country)
 
     def __str__(self):
         return f"Plant: {self.name} - Category: {self.category}"

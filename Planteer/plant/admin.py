@@ -1,5 +1,8 @@
 from django.contrib import admin
-from .models import Plant, Comment
+from .models import Plant, Comment ,Country
+
+class CountryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'flag')
 
 class PlantAdmin(admin.ModelAdmin):
     list_display = ('name', 'category', 'is_edible', 'created_at')
@@ -15,3 +18,4 @@ class CommentAdmin(admin.ModelAdmin):
 # Register your models here.
 admin.site.register(Plant, PlantAdmin)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(Country, CountryAdmin)

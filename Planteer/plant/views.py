@@ -1,26 +1,32 @@
 from django.shortcuts import get_object_or_404, render , redirect
 from django.http import HttpRequest, HttpResponse
-from .models import Plant , Comment
+from .models import Plant , Comment , Country
 from .forms import PlantForm
 # Create your views here.
 def plants_view(request : HttpRequest):
     plants = Plant.objects.all()
+    countries = Country.objects.all()
     search = request.GET.get('search')
     category = request.GET.get('category')
     is_edible = request.GET.get('is_edible')
+    country = request.GET.get('country')
     if search:
         plants = plants.filter(name__icontains=search)
     if category:
         plants = plants.filter(category=category)
+    if country:
+        plants = plants.filter(countries=country)
     if is_edible == "true":
         plants = plants.filter(is_edible=True)
     elif is_edible == "false":
         plants = plants.filter(is_edible=False)
 
-    return render(request, "plant/show_plant.html", {"plants": plants})
+    return render(request, "plant/show_plant.html", {"plants": plants, "countries": countries})
 
 def new_plant_view(request : HttpRequest):
 
+
+    countries = Country.objects.all()
     if request.method == "POST":
         plant_form = PlantForm(request.POST, request.FILES)
         if plant_form.is_valid():
@@ -28,7 +34,7 @@ def new_plant_view(request : HttpRequest):
             return redirect('plant:plants_view')
     else:
         plant_form = PlantForm()
-        return render(request, 'plant/new_plant_page.html', {'form': plant_form})
+        return render(request, 'plant/new_plant_page.html', {'form': plant_form, 'countries': countries})
 
         
     return render(request, "plant/new_plant_page.html")

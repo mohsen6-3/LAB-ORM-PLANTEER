@@ -12,4 +12,5 @@ class PlantForm(forms.ModelForm):
             "category": forms.Select(attrs={"class": "form-control", "required": True}), 
             "is_edible": forms.CheckboxInput(attrs={"class": "form-check-input", "required": False}),
             "image": forms.ClearableFileInput(attrs={"class": "form-control-file", "required": False, "accept": "image/*"}),
+            "countries":  forms.CheckboxSelectMultiple(),
         }

@@ -13,6 +13,7 @@
             <div class="col-md-8">
                 <div class="card-body ">
                     <h5 class="card-title">{{ plant.name }}</h5>
+                    <p class="card-text">Country: {{ plant.countries.all|join:", " }}</p>
                     <p class="card-text">{{ plant.get_category_display }}</p>
                     <p class="card-text">{{ plant.about }}</p>
                     <p class="card-text">Created at: {{ plant.created_at }}</p>
