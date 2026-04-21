@@ -18,7 +18,8 @@ class Plant(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        return f"Plant: {self.name} - Category: {self.category}"
+
 
 class Comment(models.Model):
     plant =models.ForeignKey(Plant,on_delete=models.CASCADE)
@@ -26,6 +27,6 @@ class Comment(models.Model):
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"Comment by {self.name} on {self.plant.name}"
+    # def __str__(self):
+    #     return f"Comment by {self.name} on {self.plant.name}"
     
