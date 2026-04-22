@@ -83,3 +83,4 @@ def add_comment_view(request : HttpRequest, plant_id):
         new_comment.save()
 
     return redirect('plant:detail_plant_view', plant_id=plant_id)
+

@@ -3,6 +3,8 @@ from .models import Plant, Comment ,Country
 
 class CountryAdmin(admin.ModelAdmin):
     list_display = ('name', 'flag')
+    list_filter = ('name',)
+    search_fields = ('name',)
 
 class PlantAdmin(admin.ModelAdmin):
     list_display = ('name', 'category', 'is_edible', 'created_at')

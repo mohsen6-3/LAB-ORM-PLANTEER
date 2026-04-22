@@ -41,19 +41,21 @@
         <div class="mb-3">
             <label>Countries:</label>
 
-            {% for country in form.fields.countries.queryset %}
-            <div class="form-check d-flex align-items-center gap-2">
-
-                <input type="checkbox" name="countries" value="{{ country.id }}" class="form-check-input"
-                    id="country_{{ country.id }}">
-
-                <label class="form-check-label" for="country_{{ country.id }}">
-                    <img src="{{ country.flag.url }}" width="25" height="15" style="object-fit: cover;">
-                    {{ country.name }}
-                </label>
-
+            <div class="countries-container">
+                {% for country in form.fields.countries.queryset %}
+                <div class="country-item">
+                
+                    <input type="checkbox" name="countries" value="{{ country.id }}" class="form-check-input"
+                        id="country_{{ country.id }}">
+                
+                    <label class="form-check-label" for="country_{{ country.id }}">
+                        <img src="{{ country.flag.url }}" width="25" height="15" style="object-fit: cover;">
+                        {{ country.name }}
+                    </label>
+                
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
 
         </div>
 

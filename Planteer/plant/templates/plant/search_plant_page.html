@@ -8,7 +8,7 @@
     <h5 class="mb-4 search_page">Results for "{{ request.GET.search }}"</h5>
     <div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
         <form method="get" action="{% url 'plant:search_plant_view' %}" class="d-flex mt-1 w-100" role="search" >
-            <input  class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search"value="{{request.GET.search}}" required minlength="3" />
+            <input  class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search"value="{{request.GET.search}}" required minlength="3"/>
             <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
         </form>
         {% if plant %}
