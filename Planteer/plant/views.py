@@ -2,6 +2,8 @@ from django.shortcuts import get_object_or_404, render , redirect
 from django.http import HttpRequest, HttpResponse
 from .models import Plant , Comment , Country
 from .forms import PlantForm
+from django.core.paginator import Paginator
+
 # Create your views here.
 def plants_view(request : HttpRequest):
     plants = Plant.objects.all()
@@ -21,7 +23,11 @@ def plants_view(request : HttpRequest):
     elif is_edible == "false":
         plants = plants.filter(is_edible=False)
 
-    return render(request, "plant/show_plant.html", {"plants": plants, "countries": countries})
+    page_number = request.GET.get('page', 1)
+    paginator = Paginator(plants, 6)
+    plants_page= paginator.get_page(page_number)
+
+    return render(request, "plant/show_plant.html", {"plants": plants_page, "countries": countries})
 
 def new_plant_view(request : HttpRequest):
 

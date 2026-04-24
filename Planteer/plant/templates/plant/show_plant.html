@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container mt-5">
-        <h1 class="mb-4">All Plants ({{ plants.count }})</h1>
+        <h1 class="mb-4">All Plants ({{ plants.paginator.count }})</h1>
         {% if plants %}
             <div class="d-flex justify-content-end mb-3">
                 <form action="{% url 'plant:plants_view' %}" method="get" >
@@ -46,5 +46,26 @@
              <p>No plants found.</p>
         {% endif %}
         {% include 'plant/plant_card.html' %}
+        <div class="pagination d-flex justify-content-center align-items-center mt-5 gap-4">
+            {% if plants.has_previous %}
+            <div class="d-flex gap-1">
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ plants.previous_page_number }}">&laquo; previous</a>
+            </div>
+            {% endif %}
+        
+            <div class="current">
+                Page {{ plants.number }} of {{ plants.paginator.num_pages }}
+            </div>
+        
+            {% if plants.has_next %}
+            <div class="d-flex gap-1">
+                <a href="?page={{ plants.next_page_number }}">next &raquo;</a>
+                <a href="?page={{ plants.paginator.num_pages }}">last &raquo;</a>
+            </div>
+            {% endif %}
+        
+        
+        </div>
 </div>
 {% endblock %}
