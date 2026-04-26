@@ -33,6 +33,9 @@ def plants_view(request : HttpRequest):
 
 def new_plant_view(request : HttpRequest):
 
+    if not request.user.is_staff:
+        messages.error(request, "You must be a staff member to add a plant.", "alert-danger")
+        return redirect('main:home_view')
 
     countries = Country.objects.all()
     if request.method == "POST":
@@ -57,6 +60,9 @@ def detail_plant_view(request : HttpRequest, plant_id):
     return render(request, "plant/detail_plant_page.html", {"plant": plant,"related_plants": related_plants, "comments": comments})
 
 def update_plant_view(request : HttpRequest, plant_id):
+    if not request.user.is_staff:
+        messages.error(request, "You must be a staff member to update a plant.", "alert-danger")
+        return redirect('main:home_view')
 
     plant = get_object_or_404(Plant, pk=plant_id)
     if request.method == "POST":
@@ -70,6 +76,10 @@ def update_plant_view(request : HttpRequest, plant_id):
     return render(request, "plant/update_plant_page.html", {"plant": plant , "form": plant_form})
 
 def delete_plant_view(request : HttpRequest, plant_id):
+    if not request.user.is_staff:
+        messages.error(request, "You must be a staff member to delete a plant.", "alert-danger")
+        return redirect('main:home_view')
+
     try:
         plant = get_object_or_404(Plant, pk=plant_id)
         if request.method == "POST":
@@ -89,11 +99,16 @@ def search_plant_view(request : HttpRequest):
     return render(request, "plant/search_plant_page.html",{"plant": plant})
 
 def add_comment_view(request : HttpRequest, plant_id):
+    if not request.user.is_authenticated:
+        messages.error(request, "You must be logged in to add a comment.", "alert-danger")
+        return redirect('accounts:signin_view')
 
     if request.method == "POST":
         plant_object = Plant.objects.get(pk=plant_id)
-        new_comment = Comment(plant=plant_object,name=request.POST["name"],comment=request.POST["comment"])
+        new_comment = Comment(plant=plant_object,user=request.user,comment=request.POST["comment"])
         new_comment.save()
+
+        messages.success(request, "Comment added successfully.","alert-success")
 
     return redirect('plant:detail_plant_view', plant_id=plant_id)
 

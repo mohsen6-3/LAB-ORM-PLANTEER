@@ -29,9 +29,31 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'contact:contact_view' %}">Contact Us</a>
                     </li>
+                    {% if request.user.is_staff %}
                     <li class="nav-item">
                         <a class="btn btn-outline-success" href="{% url 'plant:new_plant_view' %}">Add Plant </a>
                     </li>
+                    {% endif %}
+                    <li class="nav-item">
+                            {% if request.user.is_authenticated%}
+                                <div class="d-flex gap-1 align-items-center ">
+                                    <h6 class="p-0 m-0  ">Welcome {{request.user.username}}</h6>
+                                    <a class="nav-link" href="{% url 'accounts:logout_view' %}?next={{ request.path }}">Logout</a>
+                                </div>
+                            {% else %}
+                                <div class="dropdown">
+                                    <a class="btn btn-outline-success dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        Sign up / Sign in
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="{% url 'accounts:signup_view' %}?next={{ request.path }}">Sign up</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'accounts:signin_view' %}?next={{ request.path }}">Sign in</a></li>
+                                    </ul>
+                                </div>
+                            {% endif%}
+                    </li>
+                    
                    
                     <!-- <li class="nav-item">
                         <a class="nav-link" href="#">Pricing</a>

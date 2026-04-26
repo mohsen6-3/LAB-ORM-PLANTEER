@@ -4,17 +4,14 @@ from .models import Plant, Comment ,Country
 class CountryAdmin(admin.ModelAdmin):
     list_display = ('name', 'flag')
     list_filter = ('name',)
-    search_fields = ('name',)
 
 class PlantAdmin(admin.ModelAdmin):
     list_display = ('name', 'category', 'is_edible', 'created_at')
     list_filter = ('category', 'is_edible')
-    search_fields = ('name', 'about', 'used_for')
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'plant', 'created_at')
+    list_display = ('user', 'plant', 'created_at')
     list_filter = ('plant', 'created_at')
-    search_fields = ('name', 'comment')
 
 
 # Register your models here.
