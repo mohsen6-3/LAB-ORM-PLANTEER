@@ -29,7 +29,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'contact:contact_view' %}">Contact Us</a>
                     </li>
-                    {% if request.user.is_staff %}
+                    {% if request.user.is_staff and perms.plant.add_plant %}
                     <li class="nav-item">
                         <a class="btn btn-outline-success" href="{% url 'plant:new_plant_view' %}">Add Plant </a>
                     </li>
@@ -37,7 +37,8 @@
                     <li class="nav-item">
                             {% if request.user.is_authenticated%}
                                 <div class="d-flex gap-1 align-items-center ">
-                                    <h6 class="p-0 m-0  ">Welcome {{request.user.username}}</h6>
+                                    <a class="nav-link" href="{% url 'accounts:user_profile_view' request.user.username%}">Welcome {{request.user.username}}</a>
+                                    <!-- <h6 class="p-0 m-0  "></h6> -->
                                     <a class="nav-link" href="{% url 'accounts:logout_view' %}?next={{ request.path }}">Logout</a>
                                 </div>
                             {% else %}

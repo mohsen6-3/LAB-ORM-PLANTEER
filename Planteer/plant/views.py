@@ -33,8 +33,8 @@ def plants_view(request : HttpRequest):
 
 def new_plant_view(request : HttpRequest):
 
-    if not request.user.is_staff:
-        messages.error(request, "You must be a staff member to add a plant.", "alert-danger")
+    if not (request.user.is_staff and request.user.has_perm("plant.add_plant")):
+        messages.warning(request, "You do not have permission to add a plant.", "alert-warning")
         return redirect('main:home_view')
 
     countries = Country.objects.all()
@@ -99,6 +99,8 @@ def search_plant_view(request : HttpRequest):
     return render(request, "plant/search_plant_page.html",{"plant": plant})
 
 def add_comment_view(request : HttpRequest, plant_id):
+
+    
     if not request.user.is_authenticated:
         messages.error(request, "You must be logged in to add a comment.", "alert-danger")
         return redirect('accounts:signin_view')
