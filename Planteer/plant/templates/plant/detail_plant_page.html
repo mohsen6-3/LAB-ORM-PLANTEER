@@ -50,7 +50,7 @@
         </div>
     </div>
     <hr />
-    {% if request.user.is_authenticated and request.user.is_staff %}
+    {% if request.user.is_authenticated %}
     <h3>Add Comment</h3>
     <form class="d-flex flex-column gap-2 mt-3 mb-2" action="{% url 'plant:add_comment_view' plant.id %}" method="post">
         {% csrf_token %}
@@ -60,7 +60,7 @@
     </form>
     {% else %}
     <div class="p-3 mb-3 bg-light border rounded-3">
-        <p>Please <a href="{% url 'accounts:signin_view' %}">sign in</a> to add a comment.</p>
+        <p>Please <a href="{% url 'accounts:signin_view' %}?next={{ request.path }}">sign in</a> to add a comment.</p>
     </div>
     {% endif %}
     

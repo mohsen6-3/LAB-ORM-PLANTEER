@@ -19,5 +19,9 @@ def contact_view(request: HttpRequest) :
     return render(request, "contact/contact_page.html")
 
 def message_view(request: HttpRequest):
-    messages = Contact.objects.all().order_by("-created_at")
-    return render(request, "contact/message_page.html", {"messages": messages})
+    contact_messages = Contact.objects.all().order_by("-created_at")
+    return render(
+        request,
+        "contact/message_page.html",
+        {"contact_messages": contact_messages},
+    )

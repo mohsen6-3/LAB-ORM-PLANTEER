@@ -20,7 +20,7 @@ main {
     color: #333333;
     text-align: center;
 }
-.navbar {
+.site-navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -29,7 +29,7 @@ main {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.navbar .navbar-brand {
+.site-navbar .navbar-brand {
     font-size: 30px;
     font-weight: bold;
     color: #333333;
@@ -198,7 +198,7 @@ main {
 
 /* Tablet */
 @media (max-width: 992px) {
-    .navbar {
+    .site-navbar {
         padding: 16px 24px;
     }
 
@@ -218,14 +218,12 @@ main {
 
 /* Mobile */
 @media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
+    .site-navbar {
         gap: 10px;
         padding: 15px 20px;
-        text-align: center;
     }
 
-    .navbar .navbar-brand {
+    .site-navbar .navbar-brand {
         font-size: 24px;
     }
 

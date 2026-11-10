@@ -4,9 +4,9 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="mb-4">Messages from Users: {{ messages.count }}</h1>
-    {% if messages %}
-    {% for message in messages %}
+    <h1 class="mb-4">Messages from Users: {{ contact_messages.count }}</h1>
+    {% if contact_messages %}
+    {% for message in contact_messages %}
     <div class="card mb-3">
         <div class="card-body">
             <h5 class="card-title">{{ message.first_name }} {{ message.last_name }}</h5>
